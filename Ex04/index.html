@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ex 4 - Busca Endereço Parte 2</title>
+  </head>
+  <body>
+    <!-- <input type="number" id="cep" />
+    <button onclick="buscarCep()">Pesquisar CEP</button>
+    <button id="button">Pesquisar CEP</button>
+    <div id="res">
+      <p></p>
+    </div> -->
+
+    <input type="number" id="cep" onblur="validaCEP()" />
+    <button onclick="consultaEndereço()">Pesquisar CEP</button>
+
+    <div id="res">
+      <p></p>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
