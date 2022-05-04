@@ -1,19 +1,30 @@
-const buscarCep = async () => {
-  const cep = document.getElementById('cep').value
+const botao = document.getElementById('botao')
+const cep = document.getElementById('cep')
+const res = document.getElementById('res')
 
-  const url = `https://viacep.com.br/ws/${cep}/json/`
-  fetch(url)
-    .then(responde => responde.json())
-    .then(mostrarEndereco)
-  // .then(console.log)
-  mostrarEndereco()
-}
-
-function mostrarEndereco(dados) {
-  let res = document.getElementById('res')
-
-  res.innerHTML = `<p>Endereço: ${dados.logradouro}</p>
-                   <p>Complemento: ${dados.complemento}</p>
-                   <p>Bairro: ${dados.bairro}</p>
-                   <p>Cidade: ${dados.localidade}</p> - ${dados.uf}`
+botao.addEventListener('click', pesquisar)
+async function pesquisar() {
+  if (cep.value.length === 0) {
+    alert('Campo vazio! É necessário preencher')
+  } else if (cep.value.length !== 8) {
+    alert('CEP inválido!')
+  } else {
+    try {
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cep.value}/json/`
+      )
+      const dados = await response.json()
+      if (dados.erro === true) {
+        alert('Não foi possível consultar o CEP informado!')
+      } else {
+        res.innerHTML = `${dados.logradouro}
+                 - ${dados.complemento}
+                ${dados.bairro}
+                 - ${dados.localidade} - ${dados.uf}
+                 - ${dados.cep}`
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
