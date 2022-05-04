@@ -5,7 +5,7 @@ const res = document.getElementById('res')
 botao.addEventListener('click', pesquisar)
 async function pesquisar() {
   if (cep.value.length === 0) {
-    alert('Campo vazio! É necessário preencher')
+    alert('Preencher campo!')
   } else if (cep.value.length !== 8) {
     alert('CEP inválido!')
   } else {
@@ -18,10 +18,10 @@ async function pesquisar() {
         alert('Não foi possível consultar o CEP informado!')
       } else {
         res.innerHTML = `${dados.logradouro}
-                 - ${dados.complemento}
-                ${dados.bairro}
-                 - ${dados.localidade} - ${dados.uf}
-                 - ${dados.cep}`
+                  ${dados.complemento}
+                  ${dados.bairro}
+                  ${dados.localidade} - ${dados.uf}
+                  ${dados.cep}`
       }
     } catch (err) {
       console.log(err)
