@@ -3,6 +3,9 @@ const cidade = document.getElementById('cidade')
 const rua = document.getElementById('rua')
 const botao = document.getElementById('botao')
 const res = document.getElementById('res')
+const tabela = document.getElementById('tabela')
+const paragrafo = document.createElement('p')
+const th = document.createElement('th')
 
 botao.addEventListener('click', consultar)
 async function consultar() {
@@ -19,17 +22,23 @@ async function consultar() {
       )
       const cep = await response.json()
       if (cep[0] == undefined) {
-        alert('ERRO: Não foi possível encontrar o endereço!')
+        // alert('ERRO: Não foi possível encontrar o CEP!')
+        paragrafo.textContent = 'Não foi possível encontrar CEP!'
+        th.innerHTML = ''
       } else {
-        res.innerHTML = `
-                Logradouro: ${cep[0].logradouro}
-                Complemento: ${cep[0]?.complemento}
-                Bairro: ${cep[0].bairro}
-                Localidade:${cep[0].localidade}
-                UF:${cep[0].uf}`
+        paragrafo.textContent = ''
+        th.innerHTML = `<tr><th>Logradouro: ${cep[0].logradouro}</td></tr>
+        <tr><th>Complemento: ${cep[0].complemento}</td></tr>
+        <tr><th>Bairro: ${cep[0].bairro}</td></tr>
+        <tr><th>Localidade:${cep[0].localidade}</td></tr>
+        <tr><th>UF:${cep[0].uf}</td></tr>
+        <tr><th> CEP: </th> <td> ${cep[0].cep} </td></tr>
+        <tr><th>DDD: </th><td>${cep[0].ddd}</td></tr>`
       }
     } catch (err) {
       alert('ERRO: ', err)
     }
   }
+  tabela.appendChild(th)
+  res.appendChild(paragrafo)
 }
